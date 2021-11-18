@@ -1,4 +1,5 @@
 import { getOrders, patchOrderStatus, postOrder } from '../api/orders'
+import { showError } from './error'
 
 export const PLACE_ORDER_PENDING = 'PLACE_ORDER_PENDING'
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS'
@@ -45,7 +46,10 @@ export function fetchOrders () {
         dispatch(fetchOrdersSuccess(orders))
         return null
       })
-      .catch((err) => console.error('Fuggen whoopsie ', err.message))
+      .catch((err) => {
+        const errMessage = err.response?.text || err.message
+        dispatch(showError(errMessage))
+      })
   }
 }
 
@@ -58,7 +62,10 @@ export function placeOrder (cart, history) {
         history.push('/orders')
         return null
       })
-      .catch(err => console.error('You can\'t order me around! ', err.message))
+      .catch((err) => {
+        const errMessage = err.response?.text || err.message
+        dispatch(showError(errMessage))
+      })
   }
 }
 
@@ -66,8 +73,8 @@ export function updateOrderStatus (id, newStatus) {
   return (dispatch) => {
     dispatch(updateOrderStatusPending())
     return patchOrderStatus(id, newStatus)
-      .then((order) => {
-        dispatch(updateOrderStatusSuccess(order))
+      .then((newOrder) => {
+        dispatch(updateOrderStatusSuccess(newOrder))
         dispatch(fetchOrdersPending())
         return getOrders()
       })
@@ -76,6 +83,9 @@ export function updateOrderStatus (id, newStatus) {
         return null
       }
       )
-      .catch(err => console.error('You don\'t have the proper clearance ', err.message))
+      .catch((err) => {
+        const errMessage = err.response?.text || err.message
+        dispatch(showError(errMessage))
+      })
   }
 }
