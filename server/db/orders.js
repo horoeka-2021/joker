@@ -25,9 +25,8 @@ function addOrder (orderRequest, db = connection) {
   // remove item names from order (we have the id)
   const order = orderRequest.map((item) => {
     return {
-      id: item.order_product_id,
-      productId:item.product_id,
-      orderId:item.order_id,
+      id: item.id,
+
       quantity: item.quantity
     }
   })
@@ -40,6 +39,7 @@ function addOrder (orderRequest, db = connection) {
   const timestamp = new Date(Date.now())
   return db('orders').insert({
     status: 'pending'
+    // createAt: timestamp
   })
     .then(([id]) => addOrderLines(id, order, db))
 }
@@ -84,7 +84,7 @@ function findOrderById (id, db = connection) {
       'products.id as productId',
       'orders.id as orderId',
       'quantity',
-      'orders.status as status' ,
+      'orders.status as status',
       'name')
     .where('orders.id', id)
     .then(formatOrder)

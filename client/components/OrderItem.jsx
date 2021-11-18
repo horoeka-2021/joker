@@ -5,6 +5,7 @@ function OrderItem (props) {
   return (
     <tr>
       <td>{name}</td>
+
       <td>{quantity}</td>
     </tr>
   )
