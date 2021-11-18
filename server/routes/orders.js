@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  console.log(req.body);
   db.addOrder(req.body)
     .then(() => {
       res.sendStatus(201)

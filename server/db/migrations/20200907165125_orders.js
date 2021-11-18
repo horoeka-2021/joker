@@ -3,6 +3,7 @@ exports.up = knex => {
     table.increments('id')
     table.date('order_date')
     table.decimal('total_price')
+    table.string('status')
   })
 }
 
