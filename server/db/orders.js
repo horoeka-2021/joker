@@ -16,8 +16,7 @@ function listOrders (db = connection) {
       'products.id as productId',
       'orders.id as orderId',
       'quantity',
-      'created_at as createdAt',
-      'status',
+      'orders.status as status',
       'name')
     .then(formatOrderList)
 }
@@ -26,7 +25,9 @@ function addOrder (orderRequest, db = connection) {
   // remove item names from order (we have the id)
   const order = orderRequest.map((item) => {
     return {
-      id: item.id,
+      id: item.order_product_id,
+      productId:item.product_id,
+      orderId:item.order_id,
       quantity: item.quantity
     }
   })
@@ -38,7 +39,6 @@ function addOrder (orderRequest, db = connection) {
   // will only get here to insert if the order is valid
   const timestamp = new Date(Date.now())
   return db('orders').insert({
-    created_at: timestamp,
     status: 'pending'
   })
     .then(([id]) => addOrderLines(id, order, db))
@@ -84,8 +84,7 @@ function findOrderById (id, db = connection) {
       'products.id as productId',
       'orders.id as orderId',
       'quantity',
-      'created_at as createdAt',
-      'status',
+      'orders.status as status' ,
       'name')
     .where('orders.id', id)
     .then(formatOrder)
