@@ -6,6 +6,7 @@ import Order from './Order'
 
 function OrderList ({ children }) {
   const orders = useSelector(state => state.orders)
+  console.log(orders)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -14,7 +15,7 @@ function OrderList ({ children }) {
   return (
     <div className='orderlist'>
       {children} { /* Holds the WaitIndicator */ }
-      {orders?.map(order => {
+      {orders.map(order => {
         return (
           <Order
             key={order.id}

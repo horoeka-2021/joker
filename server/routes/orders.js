@@ -9,6 +9,7 @@ module.exports = router
 router.get('/', (req, res) => {
   db.listOrders()
     .then((orders) => {
+      // console.log(orders)
       res.json(orders)
       return null
     })
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body)
   db.addOrder(req.body)
     .then(() => {
       res.sendStatus(201)
