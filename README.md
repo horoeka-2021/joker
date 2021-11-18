@@ -13,15 +13,17 @@ npm run dev
 ```
 
 
-## Starting place
-
-* All of the React components are in place.
-* You can find the beer data in `data/beers.js`.
-* Redux has been installed, but not yet configured.
-* The `actions` and `reducers` folders have been created, but no actions or reducers have been created yet.
-* The beer listing displays the beers, but the _Add to cart_ link doesn't do anything yet.
-
-Before we jump into the code editor, let's do some thinking about what we need to accomplish.
+## User Stories
+User stories:
+- A user can see the list of products
+- A user can selects/place a product
+- a user can update can update the quantity
+- a user can remove the item
+- a use can checkout
+Stretch
+- an administrator can add/remove a product
+- an administrator can manage orders
+- pretty CSS
 
 
 
