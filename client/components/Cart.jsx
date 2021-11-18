@@ -1,64 +1,57 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { navigate, delCart, updateQuantities } from '../actions'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-function Cart () {
+import { Link } from 'react-router-dom'
+import { placeOrder } from '../actions/orders'
+
+import CartItem from './CartItem'
+
+function Cart (props) {
+  const { children } = props
+
+  const cart = useSelector(state => state.cart)
   const dispatch = useDispatch()
-  const reduxCart = useSelector(state => state.cart)
-  const [cart, setCart] = useState(reduxCart)
 
-  // const [updatedCart, setUpdatedCart] = useState([])
-
-  function clickNavigate (event) {
-    const action = navigate('home')
-    dispatch(action)
+  function submitCart () {
+    console.log('coming soon!')
+    dispatch(placeOrder(cart, history))
   }
 
-  const handleDelete = id => event => {
-    event.preventDefault()
-    const action = delCart(id)
-    dispatch(action)
-  }
-
-  const handleChange = id => event => {
-    setCart(cart.map(item => item.id === id ? { ...item, quantity: event.target.value } : item))
-  }
-
-  const handleUpdate = event => {
-    const action = updateQuantities(cart)
-    dispatch(action)
-  }
-
-  return (
-    <div className='cart'>
-      <table>
-        <thead>
-          <tr>
-            <td>Beer</td>
-            <td>Quantity</td>
-            <td>Remove</td>
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map(({ id, name, quantity }) => {
-            return (
-              <tr key={id}>
-                <td>{name}</td>
-                <td><input className='update-input' value={quantity} onChange={handleChange(id)}/></td>
-                <td><button onClick={handleDelete(id)}><span className='fa fa-trash fa-2x' /></button></td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-
-      <p className='actions'>
-        <a onClick={clickNavigate}>Continue shopping</a>
-        <button onClick={handleUpdate} >Update</button>
-        <button className='button-primary'>Checkout</button>
-      </p>
-    </div>
-  )
+  return cart.length
+    ? (
+      <div className='cart'>
+        <table>
+          <thead>
+            <tr>
+              <td role='columnheader'>Product</td>
+              <td role='columnheader'>Quantity</td>
+              <td role='columnheader'>Remove</td>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((item, id) => {
+              return (
+                <CartItem
+                  key={id}
+                  item={item}
+                />)
+            })}
+          </tbody>
+        </table>
+        <p className='actions'>
+          <Link to='/'>Continue shopping</Link>
+          <span>
+            {children} { /* Holds the WaitIndicator */}
+            <button
+              className='button-primary'
+              onClick={submitCart}>
+              Place Order
+            </button>
+          </span>
+        </p>
+      </div>
+    )
+    : <p>Your cart is empty! Start shopping <Link to='/'>here</Link></p>
 }
 
 export default Cart

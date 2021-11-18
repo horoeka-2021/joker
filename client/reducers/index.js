@@ -1,10 +1,15 @@
 import { combineReducers } from 'redux'
 
-// import otherReducer from './other-reducer'
+import products from './products'
 import cart from './cart'
-import activePage from './activePage'
+import errorMessage from './errorMessage'
+import waiting from './waiting'
+import orders from './orders'
 
 export default combineReducers({
+  products,
   cart,
-  activePage
+  errorMessage,
+  waiting,
+  orders
 })

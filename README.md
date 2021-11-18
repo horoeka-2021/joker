@@ -1,229 +1,109 @@
-# Sweet As Beers
+# Sweet As Organics
 
-In this challenge you'll build part of a fictitious clearing house for beer - specifically the product listing and shopping cart pages.
-
+The Sweet As team have diversified! They are now selling a variety of organic foods, but have this time chosen to store their stock data in a database.
 
 ## Setup
 
 After cloning this repo
 
 ```sh
-cd sweet-as-beers && npm i
+cd sweet-as-organics-api
+npm install
+npm run knex migrate:latest
+npm run knex seed:run
 npm run dev
 ```
 
-
-## Starting place
-
-* All of the React components are in place.
-* You can find the beer data in `data/beers.js`.
-* Redux has been installed, but not yet configured.
-* The `actions` and `reducers` folders have been created, but no actions or reducers have been created yet.
-* The beer listing displays the beers, but the _Add to cart_ link doesn't do anything yet.
-
-Before we jump into the code editor, let's do some thinking about what we need to accomplish.
-
-
-## Shape of the store
-
-One of the important tasks when working with Redux is to design the shape of the store. If we think about the type of data that will be changing in this app, there are 2 clear pieces of changing data that multiple components will use:
-
-1. The contents of the **cart** as an array of cart item objects
-2. The user's **active page** (React Router is a more appropriate choice to manage navigation, but let's use Redux instead because we need the practice)
-
-Given that, our Redux store should look similar to this:
-
-```js
-{
-  cart: [
-    {
-      id: 1,
-      quantity: 3,
-      name: 'HBIB Ginger Fusion'
-    }, {
-      id: 2,
-      quantity: 1,
-      name: 'Mangose & Melons'
-    }
-  ],
-  activePage: 'home' // or 'cart'
-}
-```
-
-Now we should have a sense of what our reducers will creating. But before we start building our action creators and reducers, take this time to create the store and wrap our `<App>` with the `<Provider>` in `client/index.js`. 
-
-**Note:** You should setup your store so you can use the Redux DevTool.
-
-## Navigation
-
-In this section, we'll use a value in the Redux store to determine whether we render our `<BeerList />` component or our `<Cart />` component, changing the page we're viewing by updating this value in the store (i.e. changing the string `'home'`to be `'cart'`). We are doing this instead of using something like React Router to manage our pages, but you might choose either of these methods depending on the requirements of your project.
-
-To do this you'll create an action creator, a reducer function, and dispatch your action from a click event.
-
-1. Add an `activePage` property to the Redux store by creating a new reducer and including it in your `reducers/index.js`. That reducer should be able to respond to an action with the `type` of `'NAVIGATE'`, using that action's `page` key containing the new location and setting it as the new value in the store.
-
-2. Now implement `useSelector` in the `<App />` component to grab the value of `activePage` and determine whether to show the `<BeerList />` or `<Cart />` component. Tip: consider using the ternary operator for this.
-
-3. Create the action creator that returns the action to dispatch for navigating between pages. It could look like this:
-
-```js
-export const NAVIGATE = 'NAVIGATE'
-
-export function navigate (destination) {
-  return {
-    type: NAVIGATE,
-    page: destination // 'home' or 'cart'
-  }
-}
-```
-
-4. Add a click event handler to the `<a>` tag in `client/components/BeerListItem.jsx` and have it dispatch the `NAVIGATE` action created, with `page` having a value of `'cart'`.
-
-5. If you try to click the "Add to cart" link for a beer now, you should be shown the `<Cart />` component (though there will be nothing in it). 
-
-## Continue shopping
-
-Now that we can get to the `<Cart />` it's important we can also get back to `<BeerList />`. Rather than dispatching actions from the DevTool, add a click event handler to the "Continue shopping" link in the `<Cart />` component. This handler should dispatch the `NAVIGATE` action with a `page` of `'home'`.
-
-Ensure that clicking "Continue shopping" takes you back to the listing so you can access both pages.
-
-
-## Add to cart
-
-In this section, you'll create an action creator, a reducer function and dispatch the action.
-
-Create an action creator for an `ADD_TO_CART` action that looks similar to this:
-
-```js
-export const ADD_TO_CART = 'ADD_TO_CART'
-
-export function addToCart (id, name) {
-  return {
-    type: ADD_TO_CART,
-    id: id,
-    name: name
-  }
-}
-```
-The click event handler you wrote earlier in `client/components/BeerListItem.jsx` should also dispatch the `'ADD_TO_CART'` action with the `id` and `name` of the beer associated with the clicked link.
-
-_When you have this in place, ensure that when you click the beer links, you can see the action dispatched in the Redux Dev Tools._
-
-The items in the cart can be managed by a `cart` reducer, which probably makes sense as an array of beers and their quantities. The initial state the reducer returns should be an empty array, indicating an empty cart. 
-
-You will need to add a case to your reducer to add the beer to your `cart` when the `'ADD_TO_CART'` action has been dispatched. Consider using the spread operator to add the item to the state.
-
-This is a reasonable shape for the `cart` once it has items in it:
-
-```js
-[
-  {
-    id: 1,
-    name: 'HBIB Ginger Fusion',
-    quantity: 1
-  },
-  {
-    id: 2,
-    name: 'Mangose & Melons',
-    quantity: 1
-  }
-]
-```
-
-
-**Note:** When the reducer is processing the `ADD_TO_CART` action, it should default to `1` for the `quantity` of the cart item it's adding.
-
-_When you have this in place, ensure that when you click the beer links, you can see the store's cart changing in the Redux Dev Tools._
-
-## Display the Cart
-
-Currently the `<Cart />` component has a hardcoded, empty `cart` array. Implement `useSelector` in the `<Cart />` component so it can render the `cart` from your Redux store.
-
-Now when you add a beer, you should be taken to the cart page and the added item is displayed.
-
-**Note:** if you refresh the page, you'll empty the Redux store. So if you want to add and see multiple items in the cart, you'll need to use the "Continue shopping" button to return to the listings.
-
-## Avoid duplicate entries
-
-You'll notice that if you add a beer that is already in the cart, it will be added twice and both will have a quantity of `1`. Update your `cart` reducer so it detects if the beer being added is already in the cart. If it is, increase its `quantity` instead of adding a new one. Tip: try to have a plan for how you intend to do this before jumping directly to the code.
-
-Ensure you can now add a beer that's already in the cart and its quantity will be increased each time you add it.
-
-
-## Remove from cart
-
-Let's make it possible to remove an item from the cart. To do so, you'll create a new action creator, update your existing `cart` reducer function and a dispatch the action from a new click event handler.
-
-Create an action creator for a `REMOVE_FROM_CART` action that looks similar to this:
-
-```js
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-
-export function removeFromCart (id) {
-  return {
-    type: REMOVE_FROM_CART,
-    id: id
-  }
-}
-```
-
-Since this operates on the cart, our existing reducer will suffice - it just needs to know how to process this new action. Consider using `filter()` to remove the item from the new state.
-
-Write a click handler for the delete button that dispatches the `removeFromCart` action with the `id` of the item being removed.
-
-
-## Update the cart
-
-Now let's give the user an easier way of changing the quantities of items in the cart. In this section, you'll create a new action creator, update the existing reducer function and dispatch the new action from an event handler in `<Cart>`. You will also have to manage some component state to keep track of which items have had their quantities updated.
-
-As the user is updating the quantities of the items in their cart, you'll maintain those changes in the `<Cart />` component's state. When they click the _Update_ button, that's when you'll dispatch the `updateQuantities` action to update the Redux store. Do not dispatch any actions in the `onChange` event of the inputs.
-
-Before you continue to the next paragraph, consider what the component state needs to look like in order to keep track of the quantities of each cart item. Think through how you're going to update the state for individual item quantities in the `onChange` handler. You won't be able to use the `name` attribute from the input field, because that will be the same for each item. Remember that you are already accessing the `cart` data from your Redux store.
-
-If you want more of a challenge, you can try to implement this feature from here. If you'd like a little more guidance, keep reading.
-
-**This is a really good opportunity for problem solving, so consider what would serve your learning better and don't cheat yourself out of a chance for stretch.**
-
-Currently, the cart item quantity being rendered is the value from `cart` in our Redux store, but because this value can change, it should be rendered from component state. A reasonable approach is to use `cart` as the initial value for the component state.
-
-Add a `handleUpdate` event handler in `<Cart />` and call it from the input boxes. Be sure to pass the `id` of the cart item so the function will know which cart item to update. Use the React DevTools to ensure the updates are working as expected.
-
-Create an action creator for an `UPDATE_QUANTITIES` action that looks similar to this:
-
-```js
-export const UPDATE_QUANTITIES = 'UPDATE_QUANTITIES'
-
-export function updateQuantities (cart) {
-  return {
-    type: UPDATE_QUANTITIES,
-    cart: cart
-  }
-}
-```
-
-The `cart` parameter passed to `updateQuantities` can have this shape:
-
-```js
-[{
-  id: 1,
-  quantity: 4
-}, {
-  id: 2,
-  quantity: 6
-}]
-```
-
-Dispatch the `updateQuantities` action from the `onClick` handler of the Update button.
-
-Our existing `cart` reducer can be used once you've added to it how the state should change when this `updateQuantities` action is dispatched. Make these edits and verify the reducer is working correctly using the Redux DevTool if you need to troubleshoot anything.
-
-Verify everything is working as expected and troubleshoot any issues that you notice. Well done!
+Check that everything is running on [localhost:3000](http://localhost:3000). The app should look quite familiar, but let's check out how it differs from Sweet As Beers.
+
+## Release 0: Understanding the codebase
+This is the first time we've seen the full stack in play, redux included. With some features already complete, the code base is bigger than it has been in previous challenges.
+
+Take some time to familiarise yourself with how it's all working together by exploring the `ProductList` component, specifically how the array of products is being retrieved from our API and stored in Redux. Feel free to step through it yourself if you're feeling confident/up for a challenge, or:
+
+<details><summary>Try exploring these things:</summary>
+
+* How the `products` getting on to `ProductList`'s props.
+* How that `products` array gets into the Redux store in the first place. What's happening in `ProductList`'s `useEffect` method?
+* Check out that `fetchProducts` action creator. It returns a function rather than an object, which means it is an _async action creator_. It calls a `getProducts()` function. What does that function do?
+* On our server side, we have `/api/v1/products` GET route that uses a DB function - you could fire up a tool like Postman or Insomnia to see if this route works like you expect.
+* Follow the path back to the client side. How does the `products` data get back to that async `fetchProducts` action creator? What happens to the data then?
+* Open your Redux devtools, and as you refresh the Shop (ProductList) page, see how those dispatched actions update the store state. Can you confirm that understanding by taking a look at the reducers?
+* What does setting the `waiting` state do in terms of UI? Using the timeline slider at the bottom of your Redux devtools is a good way to see how the UI is changing based on different actions.
+* Notice how both the `products` and `waiting` reducers are watching for an action type of `FETCH_PRODUCTS_SUCCESS`, so those two different parts of the Redux store state get updated from the one action!
+
+</details>
+
+<br>
+
+Both the Shop and Cart pages are completed, with their data managed in the Redux store.
+
+Your job will be to implement the functionality for the My Orders page. The React components and the database functions are already in place, so you'll be working with the stuff in the middle - Redux, API calls with Superagent and server side routes.
+
+## Release 1: Add an order
+Once a user has their cart ready, they should be able to place their order with Sweet As Organics. Let's get the Place Order button working in `Cart`.
+
+A potential approach could be:
+* Create a new routes file (`server/routes/orders.js`) and configure your server to use those routes with an `/api/v1/orders` prefix.
+* Create a new POST route that uses the `addOrder` function from `server/db/orders.js`.
+  * `addOrder` accepts an order. It should have the same shape as the `cart` array we have in Redux on our client side (i.e. you shouldn't need to reformat the cart data).
+  * This route doesn't need to return anything, so it would make sense for your route to simply respond with a `201 (Created)`, and then return `null`.
+* Test your route works as expected with a tool like Postman or Insomnia before continuing to the client side. Also browse your `dev.sqlite3` file to ensure your order is being inserted. You should see rows added to both the `orders` and `orders_products` tables.
+
+<br>
+
+* Add a `client/api/orders.js` file, and create a `postOrder` function that uses `superagent` to make a POST request to the route you just made. (Remember it's going to need to send some order data.)
+* Create a `client/actions/orders.js` file to hold your new action creators. Think about what you're going to need the new async action creator (perhaps call it `placeOrder`) to do.
+  * First, it should dispatch a pending action, so the user gets feedback that something is happening.
+  * Then use the `postOrder` function from `client/api/orders.js` to make the POST request.
+  * We know our route only sends back a `201` status, so we won't have any data to deal with when the `postOrder` promise resolves.
+  * We should still dispatch a success action though, so our wait indicator stops spinning.
+  * A catch block is always a good idea ;)
+* It's looking like the only part of the Redux store that cares about these `placeOrder` actions is the `waiting` state - update the `waiting` reducer so it sets the state to `true` and `false` appropriately.
+* For the final piece of the puzzle, let's dispatch this `placeOrder` action from the `Cart.jsx` Place Order submit handler (remember to pass in the `cart`!).
+* Try it! Add something to your cart and place your order. Can you see the pending and success actions in your Redux devtools? Has your order been added to the database?
+
+<br> 
+
+* Notice that even when placing the order occurs successfully, the cart doesn't empty. When a user starts shopping again, they would have to manually remove the previous order items from their cart, or end up with double ups! Perhaps the `cart` reducer could also be watching for a `PLACE_ORDER_SUCCESS` action?
+* It would also be great to redirect the user to the My Orders page once their order had been placed. However, we'd only want to redirect if the API call succeeds.
+  * The `dispatch` function itself doesn't have a `.then()`, because it doesn't expect actions to be async. If we want to redirect after the order is placed, we'll need to do so inside the `.then()` in the `placeOrder` action creator.
+  * You could pass `props.history` into the action creator, along with the `cart`, and push onto it after you dispatch the success action.
+
+## Release 2: View your orders
+We've placed an order (WOO!)... but we need a way to see all the orders we've placed! This flow should be very similar to the `fetchProducts` for the Shop (ProductList) page. 
+
+You'll need:
+* A new GET route in `server/routes/orders.js` that uses `db.listOrders()`.
+  * This db function returns an array of orders.
+  * Test your route works as you expect before moving on.
+* A `getOrders` function in `client/api/orders.js` to make the API call to your new route.
+* A `fetchOrders` async action creator, which dispatches pending and success actions, and calls the `getOrders` function.
+* A new `orders` reducer, which can watch for the `FETCH_ORDERS_SUCCESS` action and set the store state to the new `orders` array. 
+  * Be sure to import this new reducer into `client/reducers/index.js` and use it inside the `combineReducers` so we get some orders showing up in our Redux store!
+* Also make sure to update the `waiting` reducer.
+* Dispatch your `fetchOrders` action from a `useEffect` hook in `OrderList.jsx`. You'll need to import the `dispatch` hook and use it in the OrderList component.
+* Check your Redux devtools - can you see the orders?
+* `OrderList` is expecting to have an `orders` array, but currently this is hardcoded to an empty array. You'll need to make use of `useSelector` to get the `orders` from your Redux store into the component, and then we should have a snazzy list of orders displaying on the page!
+
+## Release 3: Update order status
+Amazing! There are all of our orders - but currently they're all pending. Let's give our users a way to let Sweet As Organics know when they've received their order, or cancel their order if they make a mistake.
+
+Sweet As Organics wants to keep track of all orders, even cancelled ones, so rather than deleting the order, we'll just change its status to `cancelled`. Likewise, we can change the status to `completed` once an order has been received.
+
+You'll need:
+* A PATCH route on your server side that uses `db.editOrderStatus(id: number, newStatus: string)`.
+  * `editOrderStatus` returns the updated order, which you can respond with.
+  * Test your route works as you expect before hitting it from the client side.
+* A client side `patchOrderStatus` function which makes the API call to that route, sending the new status and the id.
+* An `updateOrderStatus` async action creator, which dispatches pending and success actions.
+  * The success action should have an `order` property, so you can update the `orders` array in `client/reducers/orders.js`.
+  * Also make sure to update the `waiting` reducer.
+* Dispatch your `updateOrderStatus` action from the `cancelOrder` and `completeOrder` click handlers in `Order.jsx`.
+* _Tip: use the strings `'cancelled'` and `'completed'` for the new statuses to change the status symbol colour for the order - the CSS is already in place!_
 
 
 ## Stretch
+Give the Sweet As team some admin rights - add the ability to add, remove or update a product.
 
-1. Implement the **Checkout** button on the cart page. Have it go to a thank you page and store the items in the cart as a new `Order` (new reducer). On the thank you page, include a "Home" link so they can return to the listing. Verify your orders are being saved using the Redux DevTool.
-
-1. On the listing page, add an _admin_ link that goes to a kind of Admin Portal used by Sweet As Beers to mark orders as fulfilled or cancelled. On this page, create 3 headers/sections: Pending, Cancelled, and Fulfilled. After a customer has checked out, their order should be in the _pending_ section. Next to each of these orders, provide buttons to `CANCEL_ORDER` and `FULFILL_ORDER`. When an order is cancelled, it should be moved to the cancelled section, and if fulfilled, moved to the Fulfilled section.
-
-Hopefully this exercise has given you an opportunity to become more comfortable and confident with React and managing a store with Redux.
+Write some tests! You've got the full stack available to you to test - write some that you feel you've had the least practice in.

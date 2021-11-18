@@ -1,21 +1,40 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 
 import Header from './Header'
-import BeerList from './BeerList'
+import ErrorMessage from './ErrorMessage'
 import Cart from './Cart'
-import { useSelector } from 'react-redux'
+import ProductList from './ProductList'
+import OrderList from './OrderList'
+import WaitIndicator from './WaitIndicator'
+import Admin from './Admin'
 
 function App () {
-  const activePage = useSelector((state) => state.activePage)
-
   return (
     <div className='app'>
-      <Header />
-      {
-        activePage === 'home'
-          ? <BeerList />
-          : <Cart/>
-      }
+      <Route path='/' component={Header} />
+      <Route path='/' component={ErrorMessage} />
+      <Route exact path='/' render={({ history }) => {
+        return <ProductList history={history}>
+          <WaitIndicator />
+        </ProductList>
+      }} />
+      <Route path='/cart' render={({ history }) => {
+        return <Cart history={history}>
+          <WaitIndicator />
+        </Cart>
+      }} />
+      <Route path='/orders' render={({ history }) => {
+        return <OrderList history={history}>
+          <WaitIndicator />
+        </OrderList>
+      }} />
+      <Route path='/admin' render={() => {
+        return <Admin>
+          <WaitIndicator />
+        </Admin>
+      }} />
+
     </div>
   )
 }
