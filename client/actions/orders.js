@@ -46,10 +46,7 @@ export function fetchOrders () {
         dispatch(fetchOrdersSuccess(orders))
         return null
       })
-      .catch((err) => {
-        const errMessage = err.response?.text || err.message
-        dispatch(showError(errMessage))
-      })
+      .catch((err) => console.error('Fuggen whoopsie ', err.message))
   }
 }
 
@@ -62,10 +59,7 @@ export function placeOrder (cart, history) {
         history.push('/orders')
         return null
       })
-      .catch((err) => {
-        const errMessage = err.response?.text || err.message
-        dispatch(showError(errMessage))
-      })
+      .catch(err => console.error('You can\'t order me around! ', err.message))
   }
 }
 
@@ -83,9 +77,6 @@ export function updateOrderStatus (id, newStatus) {
         return null
       }
       )
-      .catch((err) => {
-        const errMessage = err.response?.text || err.message
-        dispatch(showError(errMessage))
-      })
+      .catch(err => console.error('You don\'t have the proper clearance ', err.message))
   }
 }

@@ -32,16 +32,18 @@ function ProductList (props) {
 &#36; </span>
         </p>
       </div>
-      {children} {/* This holds the WaitIndicator (from App) */}
-      {products.map(product => {
-        return (
-          <ProductListItem
-            key={product.id}
-            product={product}
-            addToCart={addProductToCart}
-          />
-        )
-      })}
+      <div className='shopping-card'>
+        {children} {/* This holds the WaitIndicator (from App) */}
+        {products.map(product => {
+          return (
+            <ProductListItem
+              key={product.id}
+              product={product}
+              addToCart={addProductToCart}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

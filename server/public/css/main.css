@@ -24,7 +24,7 @@ a {
 
 .app {
   background-color: #F3F0D7;
-  padding: 20px 50px;
+  padding: 50px 50px;
 }
 .error {
   color: red;
@@ -152,4 +152,60 @@ span.actions {
   margin: 0 5px 0 5px;
   width: 40px;
   height: 40px;
+}
+
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 2px;
+  color: CEE5D0;
+  background-color: #CEE5D0;
+  text-align: center;
+  cursor: pointer;
+  width: 70%;
+  font-size: 10px;
+}
+
+.card .description {
+  font-size: 1rem;
+}
+.card button:hover {
+  opacity: 0.7;
+  background-color: #C1FFD7;
+}
+
+.card .name {
+  color: #5E454B
+}
+.shopping-card .card {
+  background: #FED2AA;
+  padding: 5px 10px;
+  width: 200px;
+  height: 200px;
+  box-shadow: 5px 10px #888888;
+  color: #555;
+  /* font-weight: bold; */
+  
+  text-align: center;
+  border-radius: 20px 0 20px 0;
+  flex: 1 0 500px;
+    box-sizing: border-box;
+    margin: 0.5rem 0.5em;
+    max-width: calc(25% - 1em);
+}
+
+.card p {
+  margin: 8px auto;
+  padding: 2px 0px
+}
+.price {
+  color: grey;
+  font-size: 15px;
+}
+
+.shopping-card {
+  display: flex;
+    flex-wrap: wrap;
+  
 }

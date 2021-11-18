@@ -17,10 +17,8 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   db.addOrder(req.body)
-    .then((orders) => {
-      // res.sendStatus(201)
-      // need to json the orders to send
-      res.json(orders)
+    .then(() => {
+      res.sendStatus(201)
       return null
     })
     .catch(err => console.error('Go back to Burger King! ', err.message))

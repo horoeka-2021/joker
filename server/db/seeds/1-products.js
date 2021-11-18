@@ -2,7 +2,7 @@ exports.seed = knex => {
   return knex('products').insert([
     {
       id: 1,
-      name: "Javascript injection",
+      name: 'Javascript injection',
       details: 'New Zealand',
       trade_in: 'Wearing dinausour costume for your life',
       price: 10000.00

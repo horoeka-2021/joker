@@ -62,38 +62,38 @@ export function fetchProducts () {
   }
 }
 
-// export function insertProduct (product) {
-//   return (dispatch) => {
-//     dispatch(addProductPending())
-//     return addProduct(product)
-//       .then(() => {
-//         dispatch(addProductSuccess)
-//         return null
-//       })
-//       .catch(err => console.error('I double dare you mother fucker ', err.message))
-//   }
-// }
+export function insertProduct (product) {
+  return (dispatch) => {
+    dispatch(addProductPending())
+    return addProduct(product)
+      .then(() => {
+        dispatch(addProductSuccess)
+        return null
+      })
+      .catch(err => console.error('I double dare you mother fucker ', err.message))
+  }
+}
 
-// export function removeProduct (id) {
-//   return (dispatch) => {
-//     dispatch(deleteProductPending())
-//     return deleteProduct(id)
-//       .then(() => {
-//         dispatch(deleteProductSuccess())
-//         return null
-//       })
-//       .catch(err => console.error('Get your hands off me! ', err.message))
-//   }
-// }
+export function removeProduct (id) {
+  return (dispatch) => {
+    dispatch(deleteProductPending())
+    return deleteProduct(id)
+      .then(() => {
+        dispatch(deleteProductSuccess())
+        return null
+      })
+      .catch(err => console.error('Get your hands off me! ', err.message))
+  }
+}
 
-// export function updateProduct (updatedProduct) {
-//   return (dispatch) => {
-//     dispatch(updateProductPending())
-//     return patchProduct(updatedProduct)
-//       .then(() => {
-//         dispatch(updateProductSuccess())
-//         return null
-//       })
-//       .catch(err => console.error('Step off! ', err.message))
-//   }
-// }
+export function updateProduct (updatedProduct) {
+  return (dispatch) => {
+    dispatch(updateProductPending())
+    return patchProduct(updatedProduct)
+      .then(() => {
+        dispatch(updateProductSuccess())
+        return null
+      })
+      .catch(err => console.error('Step off! ', err.message))
+  }
+}
