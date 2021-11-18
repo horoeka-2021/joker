@@ -20,6 +20,7 @@ function ProductListItem (props) {
     // </div>
     <div className="card">
 
+      <img className="product-image" src={`/images/${product.id}.jpg`}/>
       <p className='name'>{product.name}</p>
       <p className="price">$ {product.price}</p>
       <p className='details'>{product.details}</p>
