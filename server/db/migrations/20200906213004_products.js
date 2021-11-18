@@ -1,12 +1,17 @@
-exports.up = knex => {
-  return knex.schema.createTable('products', table => {
-    table.increments('id')
-    table.string('description')
-    table.string('name')
-    table.string('country')
-  })
-}
 
-exports.down = knex => {
-  return knex.schema.dropTable('products')
-}
+exports.up = function(knex) {
+  return knex.schema
+    .createTable('products',(tb) => {
+      tb.increments('id').primary();
+      tb.string('name');
+      tb.string('details');
+      tb.string('trade_in');
+      tb.decimal('price').notNullable();
+    })
+};
+
+
+exports.down = function(knex) {
+  return knex.schema
+    .dropTableIfExists('products')
+};
