@@ -25,20 +25,25 @@ function ProductList (props) {
     <div className='productlist'>
       <div className='welcome'>
         <p>
-          Welcome! Please choose from our delicious selection and don&apos;t
-          hesitate to let us know if we can answer any of your questions.
+          Welcome! Please choose from our Unique selection &#33; <br />
+          <span>Pak &#38; Spend More &#46; &#46; &#46;
+&#36;
+&#36;
+&#36; </span>
         </p>
       </div>
-      {children} {/* This holds the WaitIndicator (from App) */}
-      {products.map(product => {
-        return (
-          <ProductListItem
-            key={product.id}
-            product={product}
-            addToCart={addProductToCart}
-          />
-        )
-      })}
+      <div className='shopping-card'>
+        {children} {/* This holds the WaitIndicator (from App) */}
+        {products.map(product => {
+          return (
+            <ProductListItem
+              key={product.id}
+              product={product}
+              addToCart={addProductToCart}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }
