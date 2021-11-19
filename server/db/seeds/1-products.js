@@ -28,7 +28,7 @@ exports.seed = knex => {
     {
       id: 5,
       name: 'Fast typing pill',
-      details: 'a pill that make your hand typing fired like rocket',
+      details: 'A pill that make your hand typing fired like rocket',
       trade_in: 'clean garden 10days',
       price: 1000
     },

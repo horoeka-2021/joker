@@ -1,7 +1,7 @@
 body {
   width: 75%;
   margin: auto;
-  background-color: #FFBF86;
+  background-color: #FFCE45;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -20,7 +20,7 @@ a {
 
 .welcome span {
   margin-top: 15px;
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 .app {
@@ -163,7 +163,7 @@ span.actions {
   display: inline-block;
   padding: 2px 5px;
   color: #000000;
-  background-color: #FBFF00;
+  background-color: #FFADAD;
 
   text-align: center;
   cursor: pointer;
@@ -174,10 +174,10 @@ span.actions {
 
 
 .card button:hover {
-  opacity: 0.7;
+  opacity: 0.9;
   /* background-color: #B4FE98; */
   /* background-color: #FFFEB7; */
-  background-color: #009DAE;
+  background-color: #FF00E4;
   color: #FFE300;
 
 }
@@ -185,10 +185,11 @@ span.actions {
 
 .shopping-card .card {
 
-  background: #FED2AA;
+  background: #009DAE;
   border-radius: 30px 0 20px 0;
 
-  box-shadow: 10px 15px #77E4D4;
+  /* box-shadow: 10px 12px #009DAE; */
+  box-shadow: 10px 12px #FFCE45;
   padding: 15px 15px;
   min-width: 300px;
   width: 25%;
@@ -202,26 +203,31 @@ span.actions {
 }
 
 .card .name {
-  color: #09009B;
-  font-size: 18px;
-
+  color: #F7F6F2;
+  font-size: 2.2rem;
+  text-shadow: 2px 2px #888888;
+  letter-spacing: 2px;
+  
 }
 .card .details {
-font-size: 1.4rem;
+font-size: 1.8rem;
 /* padding: 5px 5px; */
-font-weight: 400;
+font-weight: 500;
 
 }
 .card .trade_in {
-  font-size: 1.3rem;
-  color: #6B4F4F;
-
-
+  font-size: 1.5rem;
+  color: #2D2424;
+}
+.card .trade_in span {
+  font-size: 1.8rem;
+  color: #FFF9B6;
 }
 
 .price {
-  color: grey;
-  font-size: 16px;
+  color: #FDB9FC;
+  font-size: 1.6rem;
+
 }
 
 .shopping-card {

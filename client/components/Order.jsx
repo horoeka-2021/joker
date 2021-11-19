@@ -19,7 +19,7 @@ function Order (props) {
   return (
     <div className='order'>
       <p className='name'>Order #{id}</p>
-      <p className='order-details'>Order placed: {createdAt}</p>
+      {/* <p className='order-details'>Order placed: {createdAt}</p> */}
       <p className='order-details'>
         <span className={`fa fa-circle ${status}`} aria-hidden="true"></span>
         Status: {status}

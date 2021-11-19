@@ -24,7 +24,7 @@ function ProductListItem (props) {
       <p className='name'>{product.name}</p>
       <p className="price">$ {product.price}</p>
       <p className='details'>{product.details}</p>
-      <p className='trade_in'>Trade in: <br />{product.trade_in}</p>
+      <p className='trade_in'><span>Trade in:</span> <br />{product.trade_in}</p>
 
       <p>
         <button
