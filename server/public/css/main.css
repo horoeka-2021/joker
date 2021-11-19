@@ -25,7 +25,10 @@ a {
 
 .app {
   background-color: #F3F0D7;
-  padding: 25px 25px;
+  padding-top: 25px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 50%
 }
 .error {
   color: red;
@@ -177,7 +180,7 @@ span.actions {
   opacity: 0.9;
   /* background-color: #B4FE98; */
   /* background-color: #FFFEB7; */
-  background-color: #FF00E4;
+  background-color: #FFFD95;
   color: #FFE300;
 
 }
@@ -204,8 +207,8 @@ span.actions {
 
 .card .name {
   color: #F7F6F2;
-  font-size: 2.2rem;
-  text-shadow: 2px 2px #888888;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px black;
   letter-spacing: 2px;
   
 }
@@ -216,12 +219,12 @@ font-weight: 500;
 
 }
 .card .trade_in {
-  font-size: 1.5rem;
-  color: #2D2424;
+  font-size: 1.9rem;
+  color: #CEE5D0;
 }
 .card .trade_in span {
   font-size: 1.8rem;
-  color: #FFF9B6;
+  color: #6ECB63;
 }
 
 .price {
