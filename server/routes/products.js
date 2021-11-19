@@ -9,6 +9,9 @@ module.exports = router
 router.get('/', (req, res) => {
   db.listProducts()
     .then((products) => {
+      // setTimeout(() => {
+      //   res.json(products)
+      // }, 1000)
       res.json(products)
       return null
     })

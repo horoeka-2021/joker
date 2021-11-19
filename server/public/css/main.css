@@ -1,7 +1,7 @@
 body {
   width: 75%;
   margin: auto;
-  background-color: #FFBF86;
+  background-color: #FFCE45;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -10,7 +10,8 @@ h1 {
 }
 
 a {
-  color:#D06224
+  color:#D06224;
+  font-size: 20px
 }
 .header-h1{
   margin-top: 15px;
@@ -19,7 +20,7 @@ a {
 
 .welcome span {
   margin-top: 15px;
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 .app {
@@ -150,68 +151,49 @@ span.actions {
 
 .wait-indicator {
   margin: 0 5px 0 5px;
-  width: 40px;
-  height: 40px;
+  width: 250px;
+  height: 250px;
 }
 
 
 .card button {
-  /* border: none;
-  outline: 0;
-  padding: 2px;
-  color: CEE5D0;
-  background-color: #CEE5D0;
-  text-align: center;
-  cursor: pointer;
-  width: 70%;
-  font-size: 10px; */
+
   border: none;
   outline: 0;
   display: inline-block;
   padding: 2px 5px;
-  color: #09009B;
-  background-color: #B4FE98;
+  color: #000000;
+  background-color: #FFADAD;
 
   text-align: center;
   cursor: pointer;
   width: 50%;
-  font-size: 12px;
+  font-size: 15px;
   margin: 5px;
 }
 
 
 .card button:hover {
-  opacity: 0.7;
+  opacity: 0.9;
   /* background-color: #B4FE98; */
   /* background-color: #FFFEB7; */
-  background-color: #FBFF00;
+  background-color: #FF00E4;
+  color: #FFE300;
 
 }
 
 
 .shopping-card .card {
-  /* background: #FED2AA;
-  padding: 5px 10px;
-  width: 200px;
-  height: 200px;
-  box-shadow: 5px 10px #888888;
-  color: #555;
 
-
-  text-align: center;
-  border-radius: 20px 0 20px 0;
-  flex: 1 0 500px;
-  box-sizing: border-box;
-  margin: 0.5rem 0.5em;
-  max-width: calc(25% - 1em); */
-  background: #FED2AA;
+  background: #009DAE;
   border-radius: 30px 0 20px 0;
 
-  box-shadow: 5px 10px #888888;
-  padding: 5px 5px;
+  /* box-shadow: 10px 12px #009DAE; */
+  box-shadow: 10px 12px #FFCE45;
+  padding: 15px 15px;
   min-width: 300px;
   width: 25%;
-  margin: 15px 10px;
+  margin: 15px 15px;
   text-align: center;
 }
 
@@ -221,32 +203,43 @@ span.actions {
 }
 
 .card .name {
-  color: #09009B;
-  font-size: 18px;
-
+  color: #F7F6F2;
+  font-size: 2.2rem;
+  text-shadow: 2px 2px #888888;
+  letter-spacing: 2px;
+  
 }
 .card .details {
-font-size: 1.4rem;
+font-size: 1.8rem;
 /* padding: 5px 5px; */
-font-weight: 400;
+font-weight: 500;
 
 }
 .card .trade_in {
-  font-size: 1.3rem;
-  color: #6B4F4F;
-
-
+  font-size: 1.5rem;
+  color: #2D2424;
+}
+.card .trade_in span {
+  font-size: 1.8rem;
+  color: #FFF9B6;
 }
 
 .price {
-  color: grey;
-  font-size: 16px;
+  color: #FDB9FC;
+  font-size: 1.6rem;
+
 }
 
 .shopping-card {
   display: flex;
   flex-wrap: wrap;
-  /* padding: 0px px; */
+  /* padding: 5px 5px; */
   justify-content: center
   
+}
+
+.card .product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 30px 0 20px 0;
 }
