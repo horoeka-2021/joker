@@ -10,7 +10,9 @@ router.get('/', (req, res) => {
   db.listOrders()
     .then((orders) => {
       // console.log(orders)
-      res.json(orders)
+      setTimeout(() => {
+        res.json(orders)
+      }, 3000)
       return null
     })
     .catch(err => console.error('You\'re not allowed to see these orders ', err.message))
